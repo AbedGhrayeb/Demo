@@ -2,3 +2,5 @@ appsettings.*
 bin/
 obj/
 node_modules/
+.vs/
+.vscode/
