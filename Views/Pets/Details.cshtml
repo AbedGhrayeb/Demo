@@ -1,0 +1,21 @@
+@model Pet
+    @{
+        ViewData["Title"]="Pet";
+        Layout="_Layout";
+    }
+    <h2>@Model.Name Info</h2>
+    <hr>
+    <input type="hidden" asp-for="Id"/>
+    <p class="lead">
+        <label>Name: </label>@Model.Name
+    </p>
+      <p class="lead">
+        <label>Age: </label>@Model.Age
+    </p>
+      <p class="lead">
+        <label>Color: </label>@Model.Color
+    </p>
+      <p>
+        <a asp-action="Index" class="btn btn-secondary">Back to list</a> | 
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+    </p>

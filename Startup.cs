@@ -12,6 +12,8 @@ using Demo.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Demo.Repositories;
+
 namespace Demo
 {
     public class Startup
@@ -31,6 +33,8 @@ namespace Demo
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddTransient<IPetRepository,PetRepository>();
             services.AddControllersWithViews();
            services.AddRazorPages();
         }
