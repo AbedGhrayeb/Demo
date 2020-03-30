@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Demo.Data;
 using Demo.Models;
 using Microsoft.EntityFrameworkCore;
@@ -41,5 +43,25 @@ namespace Demo.Repositories
         {
             return _context.Pets.Find(id);
         }
+
+        public IEnumerable<Pet> SearchPets(string search)
+        {
+            int age;
+            bool succes = Int32.TryParse(search, out age);
+            if (!succes)
+            {
+                age = 0;
+            }
+            return _context.Pets.Where(p => p.Name.ToLower().Contains(search.ToLower())
+                                || p.Color.ToLower().Contains(search.ToLower())
+                                || p.Age == age);
+        }
+
+        public bool VerifyName(string name)
+        {
+            return _context.Pets.Any(s => s.Name == name);
+        }
+
+  
     }
 }

@@ -1,3 +1,4 @@
+using System.IO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Demo.Repositories;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.AspNetCore.Http;
+using ClientNotifications.ServiceExtensions;
+using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
 
 namespace Demo
 {
@@ -35,6 +40,9 @@ namespace Demo
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddTransient<IPetRepository,PetRepository>();
+            //services.AddToastNotification();
+
+
             services.AddControllersWithViews();
            services.AddRazorPages();
         }
@@ -55,7 +63,11 @@ namespace Demo
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            //use node_module files
+            app.UseStaticFiles(new StaticFileOptions{
+                FileProvider=new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(),"node_modules")),
+                RequestPath=new PathString("/vendor")
+            });
             app.UseRouting();
 
             app.UseAuthentication();

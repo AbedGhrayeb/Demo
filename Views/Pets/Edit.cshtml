@@ -1,28 +1,32 @@
-@model Pet
+@model EditPetVM
 @{
     ViewData["Title"]="Edit Pet";
     Layout="_layout";
 }
 <hr>
 <form asp-action="Edit" method="POST">
-<input type="hidden" asp-for="Id" />
-<div class="form-groub">
-    <label asp-for="Name"></label>
-    <input asp-for="Name" class="form-control" />
-</div>
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <input type="hidden" asp-for="Id" />
+    <div class="form-groub">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
 
-<div class="form-groub">
-    <label asp-for="Age"></label>
-    <input asp-for="Age" class="form-control" />
-</div>
+    <div class="form-groub">
+        <label asp-for="Age"></label>
+        <input asp-for="Age" class="form-control" />
+        <span asp-validation-for="Age" class="text-danger"></span>
+    </div>
 
-<div class="form-groub">
-    <label asp-for="Color"></label>
-    <input asp-for="Color" class="form-control" />
-</div>
-<div class="mt-2">
-    <input type="submit" class="btn btn-primary" value="Save"/>
+    <div class="form-groub">
+        <label asp-for="Color"></label>
+        <input asp-for="Color" class="form-control" />
+        <span asp-validation-for="Color" class="text-danger"></span>
+    </div>
+    <div class="mt-2">
+        <input type="submit" class="btn btn-primary" value="Save" />
 
-</div>
+    </div>
 
 </form>

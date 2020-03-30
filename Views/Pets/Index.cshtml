@@ -1,31 +1,38 @@
 @model IEnumerable<Pet>
-    @{
-        ViewData["Title"]="All Pets";
-        Layout="_Layout";
-    }
-    <h2>All Pets</h2>
-    <hr>
-    <a asp-action="New" class="btn btn-primary mb-2">New</a>
-    
-    <table class="table">
-        <thead>
+@{
+    ViewData["Title"] = "All Pets";
+    Layout = "_Layout";
+}
+<h2>All Pets</h2>
+<hr>
+<a asp-action="New" class="btn btn-primary mb-2">New</a>
+<form asp-action="Index" method="post">
+    <div class="row input-group">
+        <input type="text" name="search" id="search" class="form-control" />
+        <div class="input-group-btn">
+            <input type="submit" value="Search" class="btn btn-primary" />
+        </div>
+    </div>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+            <td>Age</td>
+            <td>Color</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Model)
+        {
             <tr>
-                <td>Id</td>
-                <td>Name</td>
-                <td>Age</td>
-                <td>Color</td>
-                <td></td>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var p in Model)
-            {
-                <tr>
-                    <td>@p.Id</td>
-                    <td>@p.Name</td>
-                    <td>@p.Age</td>
-                    <td>@p.Color</td>
-                    <form asp-action="Delete" method="POST">
+                <td>@p.Id</td>
+                <td>@p.Name</td>
+                <td>@p.Age</td>
+                <td>@p.Color</td>
+                <form asp-action="Delete" method="POST">
                     <td>
                         <a asp-action="Details" asp-route-id="@p.Id" class="btn btn-info">Show</a>
                     </td>
@@ -33,14 +40,45 @@
                         <a asp-action="Edit" asp-route-id="@p.Id" class="btn btn-warning">Edit</a>
                     </td>
                     <td>
-                        <input type="hidden" asp-for="@p.Id"/>
-                        <input type="submit"  class="btn btn-danger delete" value="Delete"
-                        data-id="@p.Id" data-controller="Pets" data-action="Delete"
-                        data-body-message="Are you sure you went to delete this pet?"/>
+                        <input type="hidden" asp-for="@p.Id" />
+                        <input type="submit" class="btn btn-danger delete" value="Delete"
+                               data-id="@p.Id" data-controller="Pets" data-action="Delete"
+                               data-body-message="Are you sure you went to delete this pet?" />
                     </td>
-                    </form>
-                   
-                </tr>
-            }
-        </tbody>
-    </table>
+                </form>
+
+            </tr>
+        }
+    </tbody>
+</table>
+@section Scripts{
+    <script>
+    var options = {
+
+    url: function(search) {
+    return "/Pets/AutocompleteResult";
+    },
+
+    getValue: function(element) {
+    return element.name;
+    },
+
+    ajaxSettings: {
+    dataType: "json",
+    method: "POST",
+    data: {
+    dataType: "json"
+    }
+    },
+
+    preparePostData: function(data) {
+    data.search = $("#search").val();
+    return data;
+    },
+
+    requestDelay: 400
+    };
+
+    $("#search").easyAutocomplete(options);
+    </script>
+}

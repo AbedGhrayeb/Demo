@@ -1,24 +1,27 @@
-@model Pet
+@model NewPetVM
 @{
     ViewData["Title"]="New Pet";
     Layout="_layout";
 }
 <hr>
 <form asp-action="New" method="POST">
-@*<input type="hidden" name="isEditMode" id="isEditMode" value="@ViewBag.IsEditMode"/>*@
+    <div asp-validation-summary="All" class="text-danger"></div>
 <div class="form-groub">
     <label asp-for="Name"></label>
     <input asp-for="Name" class="form-control" />
+    <span asp-validation-for="Name" class="text-danger"></span>
 </div>
 
 <div class="form-groub">
     <label asp-for="Age"></label>
     <input asp-for="Age" class="form-control" />
+    <span asp-validation-for="Age" class="text-danger"></span>
 </div>
 
 <div class="form-groub">
     <label asp-for="Color"></label>
     <input asp-for="Color" class="form-control" />
+    <span asp-validation-for="Color" class="text-danger"></span>
 </div>
 <div class="mt-2">
     <input type="submit" class="btn btn-primary" value="Save"/>

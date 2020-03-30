@@ -10,5 +10,7 @@ namespace Demo.Repositories
          void Delete(Pet pet);
          Pet GetSinglePet(int id);
          IEnumerable<Pet> GetAllPets();
+        bool VerifyName(string name);
+        IEnumerable<Pet> SearchPets(string search);
     }
 }
