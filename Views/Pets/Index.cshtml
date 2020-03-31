@@ -32,21 +32,7 @@
                 <td>@p.Name</td>
                 <td>@p.Age</td>
                 <td>@p.Color</td>
-                <form asp-action="Delete" method="POST">
-                    <td>
-                        <a asp-action="Details" asp-route-id="@p.Id" class="btn btn-info">Show</a>
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@p.Id" class="btn btn-warning">Edit</a>
-                    </td>
-                    <td>
-                        <input type="hidden" asp-for="@p.Id" />
-                        <input type="submit" class="btn btn-danger delete" value="Delete"
-                               data-id="@p.Id" data-controller="Pets" data-action="Delete"
-                               data-body-message="Are you sure you went to delete this pet?" />
-                    </td>
-                </form>
-
+            
             </tr>
         }
     </tbody>

@@ -13,5 +13,12 @@ namespace Demo.Data
         {
         }
         public DbSet<Pet> Pets { get; set; }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<AppUser>()
+                .HasMany(p => p.Pets)
+                .WithOne(u => u.User);
+            base.OnModelCreating(builder);
+        }
     }
 }

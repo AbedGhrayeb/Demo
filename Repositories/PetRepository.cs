@@ -39,6 +39,11 @@ namespace Demo.Repositories
             return _context.Pets;
         }
 
+        public IEnumerable<Pet> GetPetsByUserId(string userId)
+        {
+            return _context.Pets.Where(x => x.UserId == userId);
+        }
+
         public Pet GetSinglePet(int id)
         {
             return _context.Pets.Find(id);

@@ -12,5 +12,6 @@ namespace Demo.Repositories
          IEnumerable<Pet> GetAllPets();
         bool VerifyName(string name);
         IEnumerable<Pet> SearchPets(string search);
+        IEnumerable<Pet> GetPetsByUserId(string userId);
     }
 }

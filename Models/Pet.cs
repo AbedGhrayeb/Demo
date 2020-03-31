@@ -6,5 +6,7 @@ namespace Demo.Models
         public string Name { get; set; }
         public int Age { get; set; }
         public string Color { get; set; }
+        public virtual AppUser User { get; set; }
+        public string UserId { get; set; }
     }
 }

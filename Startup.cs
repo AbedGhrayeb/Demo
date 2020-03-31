@@ -18,6 +18,7 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.AspNetCore.Http;
 using ClientNotifications.ServiceExtensions;
 using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
+using Demo.Models;
 
 namespace Demo
 {
@@ -36,8 +37,15 @@ namespace Demo
             services.AddDbContextPool<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddIdentity<AppUser,IdentityRole>(options =>
+            options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Account/Login";
+                options.AccessDeniedPath = "/Account/AccessDenied";
+            });
 
             services.AddTransient<IPetRepository,PetRepository>();
             //services.AddToastNotification();
